@@ -1,4 +1,4 @@
-import { getCurrentUser, logoutUser, verifyToken } from "@/api/userApiService";
+import { logoutUser, verifyToken } from "@/api/userApiService";
 import { Button } from "@/components/ui/button"
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom"
@@ -17,7 +17,8 @@ function User() {
       navigate('/')
       console.log("FE Logout repsonse: ", res)
     } catch (error) {
-      console.log("FE Failed to Logout: ", error)
+      console.log("FE Failed to Logout, LOGGING OUT MANUALLY: ", error)
+      navigate('/')
       return
     }
   }
@@ -27,12 +28,6 @@ function User() {
   useEffect(() => {
     if (hasMounted.current) {
       if (!userData.id) {
-        // const getUserData = async () => {
-        //   const res = await getCurrentUser();
-        //   setUserData(res.data)
-        //   console.log(res.data)
-        // }
-        // getUserData()
         const verifyUserToken = async () => {
           try {
             const res = await verifyToken();
